@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+    stages{
+        stage('checkout source code to jenkins workspace'){
+            steps{
+                git branch: 'main', credentialsId: 'dharmagithub', url: 'https://github.com/dharmegowda21/sideesh-sir-cicd.git'
+            }
+            
+            
+        }
+         stage('SonarQube Analysis') {
+             steps{
+                 script{
+                    def mvn = tool 'maven';
+                  withSonarQubeEnv() {
+                 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test -Dsonar.projectName='test'"  
+                 }
+             }
+   
+    }
+  }
+    }
+}
+
