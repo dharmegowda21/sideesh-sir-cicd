@@ -19,6 +19,30 @@ pipeline{
    
     }
   }
-    }
+stage('create a binary'){
+steps{
+script{
+def mvn = tool 'maven';
+sh "${mvn}/bin/mvn clean install"
+}
+}
+}
+stage('upload war to jfrog'){
+steps{
+rtUpload (
+// Obtain an Artifactory server instance, defined in Jenkins --> Manage Jenkins --> Configure System:
+serverId: "jfrog-test",
+spec: """{
+"files": [
+{
+"pattern": "webapp/target/webapp.war",
+"target": "warupload-generic-local"
+}
+]
+}"""
+)
+}
 }
 
+}
+}
