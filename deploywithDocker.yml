@@ -1,5 +1,8 @@
 ---
 - hosts: websever
+  become: yes
+  vars:
+    build_number: '{{ BUILD_NUMBER}}'
   tasks:
       
     - name: login to jfrog
