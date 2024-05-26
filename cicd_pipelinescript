@@ -1,7 +1,7 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('checkout source code to jenkins workspace'){
+    stages {
+        stage('checkout source code to jenkins workspace') {
             steps{
                 git branch: 'main', credentialsId: 'dharmagithub', url: 'https://github.com/dharmegowda21/sideesh-sir-cicd.git'
             }
@@ -27,7 +27,7 @@ sh "${mvn}/bin/mvn clean install"
 }
 }
 }
-stage('upload war to jfrog'){
+stage('upload war to jfrog') {
 steps{
 rtUpload (
 // Obtain an Artifactory server instance, defined in Jenkins --> Manage Jenkins --> Configure System:
